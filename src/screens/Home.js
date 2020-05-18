@@ -8,7 +8,7 @@ import {useDebounce} from '../hooks';
 export default function Home() {
   const [search, setSearch] = useState('');
   const [list, setList] = useState([]);
-  const debouncedSearch = useDebounce(search, 2000);
+  const debouncedSearch = useDebounce(search, 500);
 
   const getList = () => {
     axios({
@@ -28,6 +28,8 @@ export default function Home() {
   useEffect(() => {
     if (debouncedSearch && debouncedSearch.length > 0) {
       getList();
+    } else {
+      setList([]);
     }
   }, [debouncedSearch]);
 

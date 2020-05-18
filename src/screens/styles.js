@@ -21,16 +21,18 @@ export const ListItem = styled.View`
   height: 60px;
   justify-content: center;
   align-items: center;
-  background-color: #fff;
+  background-color: #000;
   border-radius: 5px;
 `;
 
 export const ItemText = styled.Text`
   font-size: 24px;
   font-weight: bold;
+  color: #fff;
 `;
 
 export const List = styled.FlatList`
   flex: 1;
-  background-color: yellow;
+  width: 100%;
+  margin-top: 15px;
 `;
