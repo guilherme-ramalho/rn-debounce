@@ -7,6 +7,12 @@ export const Container = styled.View`
   padding: 15px;
 `;
 
+export const Label = styled.Text`
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+`;
+
 export const SearchInput = styled.TextInput`
   background-color: #fff;
   max-height: 45px;
@@ -18,7 +24,7 @@ export const SearchInput = styled.TextInput`
 
 export const ListItem = styled.View`
   flex: 1;
-  height: 60px;
+  height: 55px;
   justify-content: center;
   align-items: center;
   background-color: #000;
@@ -26,7 +32,7 @@ export const ListItem = styled.View`
 `;
 
 export const ItemText = styled.Text`
-  font-size: 24px;
+  font-size: 20px;
   font-weight: bold;
   color: #fff;
 `;
@@ -35,4 +41,10 @@ export const List = styled.FlatList`
   flex: 1;
   width: 100%;
   margin-top: 15px;
+`;
+
+export const ItemSeparator = styled.View`
+  flex: 1;
+  background-color: transparent;
+  height: 3px;
 `;

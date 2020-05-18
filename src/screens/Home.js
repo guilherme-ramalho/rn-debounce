@@ -1,7 +1,15 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 
-import {Container, SearchInput, ListItem, ItemText, List} from './styles';
+import {
+  Container,
+  SearchInput,
+  ListItem,
+  ItemText,
+  List,
+  ItemSeparator,
+  Label,
+} from './styles';
 
 import {useDebounce} from '../hooks';
 
@@ -18,27 +26,34 @@ export default function Home() {
         q: debouncedSearch,
       },
     })
-      .then(response => {
-        console.log(response.data);
-        setList(response.data);
-      })
+      .then(response => setList(response.data))
       .catch(error => console.log(error));
   };
 
+  // useEffect(() => {
+  //   if (debouncedSearch && debouncedSearch.length > 2) {
+  //     getList();
+  //   } else {
+  //     setList([]);
+  //   }
+  // }, [debouncedSearch]);
+
   useEffect(() => {
-    if (debouncedSearch && debouncedSearch.length > 0) {
+    if (search && search.length > 2) {
       getList();
     } else {
       setList([]);
     }
-  }, [debouncedSearch]);
+  }, [search]);
 
   return (
     <Container>
+      <Label>Search for artist</Label>
       <SearchInput value={search} onChangeText={setSearch} />
       <List
         data={list}
         keyExtractor={item => `${item.id}`}
+        ItemSeparatorComponent={ItemSeparator}
         renderItem={({item}) => (
           <ListItem>
             <ItemText>{item.title}</ItemText>
