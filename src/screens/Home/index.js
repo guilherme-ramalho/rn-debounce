@@ -11,17 +11,17 @@ import {
   Label,
 } from './styles';
 
-import {useDebounce} from '../hooks';
+import {useDebounce} from '../../hooks';
 
 export default function Home() {
   const [search, setSearch] = useState('');
   const [list, setList] = useState([]);
-  const debouncedSearch = useDebounce(search, 500);
+  const debouncedSearch = useDebounce(search, 1000);
 
   const getList = () => {
     axios({
       method: 'GET',
-      url: 'http://192.168.1.110:3000/artists',
+      url: 'http://192.168.1.103:3000/artists',
       params: {
         q: debouncedSearch,
       },
@@ -30,25 +30,25 @@ export default function Home() {
       .catch(error => console.log(error));
   };
 
-  // useEffect(() => {
-  //   if (debouncedSearch && debouncedSearch.length > 2) {
-  //     getList();
-  //   } else {
-  //     setList([]);
-  //   }
-  // }, [debouncedSearch]);
-
   useEffect(() => {
-    if (search && search.length > 2) {
+    if (debouncedSearch && debouncedSearch.length > 2) {
       getList();
     } else {
       setList([]);
     }
-  }, [search]);
+  }, [debouncedSearch]);
+
+  // useEffect(() => {
+  //   if (search && search.length > 2) {
+  //     getList();
+  //   } else {
+  //     setList([]);
+  //   }
+  // }, [search]);
 
   return (
     <Container>
-      <Label>Search for artist</Label>
+      <Label>Search for an artist</Label>
       <SearchInput value={search} onChangeText={setSearch} />
       <List
         data={list}
