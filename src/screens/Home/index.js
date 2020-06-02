@@ -31,7 +31,7 @@ export default function Home() {
   };
 
   useEffect(() => {
-    if (debouncedSearch && debouncedSearch.length > 2) {
+    if (debouncedSearch && debouncedSearch.length >= 2) {
       getList();
     } else {
       setList([]);
@@ -39,7 +39,7 @@ export default function Home() {
   }, [debouncedSearch]);
 
   // useEffect(() => {
-  //   if (search && search.length > 2) {
+  //   if (search && search.length >= 2) {
   //     getList();
   //   } else {
   //     setList([]);
