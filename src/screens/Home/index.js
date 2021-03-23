@@ -60,15 +60,15 @@ export default function Home() {
           </LoaderContainer>
         ) : (
           <List
-        data={list}
-        keyExtractor={item => `${item.id}`}
-        ItemSeparatorComponent={ItemSeparator}
-        renderItem={({item}) => (
-          <ListItem>
-            <ItemText>{item.title}</ItemText>
-          </ListItem>
-        )}
-      />
+            data={list}
+            keyExtractor={item => `${item.id}`}
+            ItemSeparatorComponent={ItemSeparator}
+            renderItem={({item}) => (
+              <ListItem>
+                <ItemText>{item.title}</ItemText>
+              </ListItem>
+            )}
+          />
         )
       }
     </Container>
