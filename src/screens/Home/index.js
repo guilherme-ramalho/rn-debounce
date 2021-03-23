@@ -9,25 +9,36 @@ import {
   List,
   ItemSeparator,
   Label,
+  LoaderContainer,
 } from './styles';
 
 import {useDebounce} from '../../hooks';
+import { ActivityIndicator } from 'react-native';
 
 export default function Home() {
   const [search, setSearch] = useState('');
   const [list, setList] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const debouncedSearch = useDebounce(search, 1000);
 
   const getList = () => {
+    setIsLoading(true);
+
     axios({
       method: 'GET',
-      url: 'http://192.168.1.103:3000/artists',
+      url: 'http://192.168.1.104:3000/artists',
       params: {
         q: debouncedSearch,
       },
     })
-      .then(response => setList(response.data))
-      .catch(error => console.log(error));
+      .then(response => {
+        setIsLoading(false);
+        setList(response.data);
+      })
+      .catch(error => {
+        setIsLoading(false);
+        console.log(error);
+      });
   };
 
   useEffect(() => {
@@ -38,19 +49,17 @@ export default function Home() {
     }
   }, [debouncedSearch]);
 
-  // useEffect(() => {
-  //   if (search && search.length >= 2) {
-  //     getList();
-  //   } else {
-  //     setList([]);
-  //   }
-  // }, [search]);
-
   return (
     <Container>
       <Label>Search for an artist</Label>
       <SearchInput value={search} onChangeText={setSearch} />
-      <List
+      {
+        isLoading ? (
+          <LoaderContainer>
+            <ActivityIndicator size="large" color="#fff" />
+          </LoaderContainer>
+        ) : (
+          <List
         data={list}
         keyExtractor={item => `${item.id}`}
         ItemSeparatorComponent={ItemSeparator}
@@ -60,6 +69,8 @@ export default function Home() {
           </ListItem>
         )}
       />
+        )
+      }
     </Container>
   );
 }
