@@ -19,7 +19,7 @@ export default function Home() {
   const [search, setSearch] = useState('');
   const [list, setList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const debouncedSearch = useDebounce(search, 1000);
+  const debouncedSearch = useDebounce(search, 500);
 
   const getList = () => {
     setIsLoading(true);
